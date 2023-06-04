@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Добавить вопрос</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+            h1 {
+        color: #333;
+        font-size: 24px;
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    form {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .question {
+        margin-bottom: 20px;
+    }
+
+    h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    select {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        margin-bottom: 10px;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: auto;
+    }
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+    button,
+    input[type="submit"] {
+        margin-top: 10px;
+    }
+</style>
+    <script>
+        $(document).ready(function() {
+            var questionCount = 1;
+
+            $('#addQuestion').click(function() {
+                var questionHTML = '<div class="question">';
+                questionCount++;
+                questionHTML += '<h3>Вопрос ' + questionCount + '</h3>';
+                questionHTML += '<label for="question-' + questionCount + '">Вопрос:</label>';
+                questionHTML += '<input type="text" name="question-' + questionCount + '" required><br><br>';
+                questionHTML += '<label for="option1-' + questionCount + '">Вариант 1:</label>';
+                questionHTML += '<input type="text" name="option1-' + questionCount + '" required><br>';
+                questionHTML += '<label for="option2-' + questionCount + '">Вариант 2:</label>';
+                questionHTML += '<input type="text" name="option2-' + questionCount + '" required><br>';
+                questionHTML += '<label for="option3-' + questionCount + '">Вариант 3:</label>';
+                questionHTML += '<input type="text" name="option3-' + questionCount + '" required><br>';
+                questionHTML += '<label for="option4-' + questionCount + '">Вариант 4:</label>';
+                questionHTML += '<input type="text" name="option4-' + questionCount + '" required><br><br>';
+                questionHTML += '<label for="correct_option-' + questionCount + '">Правильный вариант:</label>';
+                questionHTML += '<select name="correct_option-' + questionCount + '" required>';
+                questionHTML += '<option value="option1-' + questionCount + '">Вариант 1</option>';
+                questionHTML += '<option value="option2-' + questionCount + '">Вариант 2</option>';
+                questionHTML += '<option value="option3-' + questionCount + '">Вариант 3</option>';
+                questionHTML += '<option value="option4-' + questionCount + '">Вариант 4</option>';
+                questionHTML += '</select><br><br>';
+                questionHTML += '</div>';
+
+                $('#questionsContainer').append(questionHTML);
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Добавить вопросы</h1>
+    <form action="/courses/{{ course.id }}/create_test" method="POST">
+        <div id="questionsContainer">
+            <div class="question">
+
+                <label for="question-1">Вопрос:</label>
+                <input type="text" name="question-1" required><br><br>
+
+                <label for="option1-1">Вариант 1:</label>
+                <input type="text" name="option1-1" required><br>
+
+                <label for="option2-1">Вариант 2:</label>
+                <input type="text" name="option2-1" required><br>
+
+                <label for="option3-1">Вариант 3:</label>
+                <input type="text" name="option3-1" required><br>
+
+                <label for="option4-1">Вариант 4:</label>
+                <input type="text" name="option4-1" required><br><br>
+
+                <label for="correct_option-1">Правильный вариант:</label>
+                <select name="correct_option-1" required>
+                    <option value="option1-1">Вариант 1</option>
+                    <option value="option2-1">Вариант 2</option>
+                    <option value="option3-1">Вариант 3</option>
+                    <option value="option4-1">Вариант 4</option>
+                </select><br><br>
+            </div>
+        </div>
+
+        <button type="button" id="addQuestion">Добавить вопрос</button><br><br>
+        <input type="hidden" name="course_id" value="{{ course.id }}">
+        <input type="submit" value="Сохранить тест">
+    </form>
+</body>
+</html>

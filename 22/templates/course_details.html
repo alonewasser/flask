@@ -1,0 +1,20 @@
+<!-- course_details.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Course Details</title>
+</head>
+<body>
+    {% if token %}
+<!-- Остальной HTML код в шаблоне -->
+
+<h2>{{ course.title }}</h2>
+<p>{{ course.description }}</p>
+<p>{{ course.details }}</p>
+
+<!-- Остальной HTML код в шаблоне -->
+
+{% endif %}
+
+</body>
+</html>
